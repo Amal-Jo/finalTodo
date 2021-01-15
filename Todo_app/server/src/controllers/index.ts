@@ -17,21 +17,25 @@ const addTodo=async(req:Request,res:Response)=>{
     try {
         //receives the body object that contains data entered by the user.
         const body=req.body
-
+        console.log(body)
+        
         const todo:ITodo=new TodoModel({
-           name: req.body.name,
-           completed:req.body.complete
+           name: body.task,
+           completed:false
            
        })
-       //save the Todo in the DB 
-       const newTodo:ITodo=await todo.save()
-       //return a response that contains the todo created and the updated todos array.
-       const allTodos:ITodo[]=await TodoModel.find()
+     
+        //save the Todo in the DB 
+      
+        const newTodo:ITodo=await todo.save()
+             //return a response that contains the todo created and the updated todos array.
+        const allTodos:ITodo[]=await TodoModel.find()
 
-       res.status(201).json({todo:newTodo,todos:allTodos})
+        res.status(201).json({todo:newTodo,todos:allTodos})
+       
 
     } catch (error) {
-        throw error
+        throw (error)
     }
 
 }

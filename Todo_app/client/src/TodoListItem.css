@@ -1,0 +1,49 @@
+
+.complete {
+    text-decoration: line-through;
+    color:#24a0ed !important;
+}
+.header{
+    color:#24a0ed;
+    flex-flow: column;
+    display: flex;
+    align-items: center;
+}
+.buttonform{
+   
+    
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+   
+}
+.button{
+    border-radius: 10px;
+    padding:10px;
+    margin: 10px;
+    text-transform: uppercase;
+    font-size: 13px;
+    color:#fff;
+    background-color: #24a0ed;
+
+}
+.input{
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+.list{
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+.body{
+   
+    background:	#fff;
+    color: #000000;
+}
+
+
