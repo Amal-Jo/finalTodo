@@ -1,62 +1,45 @@
+import { Component } from "react";
+import { Provider } from "react-redux";
+import { BrowserRouter , Switch, Route, Link } from "react-router-dom";
+import Main from "./pages/main";
+import LoginPage from './pages/LoginPage'
+import RegistrationForm from './pages/RegistrationForm'
+import Todohome from "./pages/TodoHome";
+import store from "./Store/store";
+import main from './pages/main'
+import { useEffect } from "react";
+import {loadUser}  from "./actions/authActions";
+import LogOutpage from "./pages/Logout";
 
-import React, { useEffect, useState }  from 'react';
-import AddTodoForm from './AddTodoForm';
-import { createTodo,getAllTodos } from './APIHelper';
-import TodoList from './TodoList';
 
 
-const initialTodos:Todo[]=[
-  // {name:"walk the dog",complete:true},
-  // {name:"watch football",complete:false}
-]
+
 
 const App:React.FC=()=> {
 
-  const[todos,setTodos]=useState(initialTodos);
-  const[tryTodo,setTryTodo]=useState([])
-
   useEffect(()=>{
-    const fetchTodos=async()=>{
-      const todos = await  getAllTodos()
-      setTodos(todos)
-    }
-    fetchTodos()
+    store.dispatch(loadUser())
   },[])
-  
-  //toggle function
-  const toggleTodo:ClickToDoToggle=(selectedTodo) => {
-    const newTodos=todos.map(todo => {
-      if(todo === selectedTodo){
-        return{
-          ...todo,
-          complete:!todo.complete
-        }
-      }
-      //if condition is not met
-      return todo;
-    })
-    setTodos(newTodos)
-  }
 
-  const addTodoData:AddToDoData=(newToDo)=>{ 
-    createTodo(newToDo)
-    newToDo.trim()!=="" && setTodos([...todos,{name:newToDo,complete:false}])
-  
-   
-  }
-  
-  return (
-    <div className="body">
-      <h1 className="header">My Todo List</h1>
-      <div className="list">
-        <TodoList todos={todos} clickToToggle={toggleTodo}/>
-      </div>
-      
-        <AddTodoForm addTodo={addTodoData}/>
+  return(
+    <div>
+      <Provider store={store}>
+      <BrowserRouter>
+        <Switch>
+              <Route exact path = "/" component={main}/>
+              <Route exact path = "/login" component={LoginPage}/>
+              
+               <Route exact path = "/signup" component={RegistrationForm}/>
+                   
+               <Route exact path = "/todo" component={Todohome}/>
+               <Route exact path = "/logout" component={LogOutpage}/>
+                  
+          
+        </Switch>
+      </BrowserRouter>
+      </Provider>
     </div>
-   
-  );
+  )
+
 }
-
 export default App;
-
